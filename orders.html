@@ -51,28 +51,17 @@
 
         <!-- Example cart item -->
         <div class="cart-item d-flex align-items-center" id="cart-container2">
-            <img src="https://via.placeholder.com/80" alt="Product Image">
-            <div class="details flex-fill">
-                <h5 class="mb-1">Product Name</h5>
-                <p class="mb-0 text-muted">Product description or details</p>
-            </div>
-            <div>$20.00</div>
-            <div class="d-flex align-items-center mx-3">
-                <button class="btn btn-outline-secondary btn-sm">-</button>
-                <input type="number" class="form-control mx-2" value="1" min="1" style="width: 60px;">
-                <button class="btn btn-outline-secondary btn-sm">+</button>
-            </div>
-            <div>$20.00</div>
+            No items in cart
         </div>
 
         <!-- Cart Summary -->
         <div class="cart-summary" id="cart-summary">
             <h3>Order Summary</h3>
-            <p>Subtotal: $40.00</p>
-            <p>Tax: $2.00</p>
-            <p><strong>Total: $42.00</strong></p>
+            <p>Subtotal: $0.00</p>
+            <p>Tax: $0.00</p>
+            <p><strong>Total: $0.00</strong></p>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-secondary me-2">Continue Shopping</button>
+                <a href="menu.html"><button class="btn btn-secondary me-2">Continue Shopping</button></a>
                 <button class="btn btn-success">Proceed to Checkout</button>
             </div>
         </div>
@@ -94,6 +83,18 @@
         import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js';
         import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js';
       
+        const foodImages = {
+          "Avocado Sushi Roll": "https://images.unsplash.com/photo-1602554171817-8467dd4310d9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Lentil Shepherd's Pie": "https://images.unsplash.com/photo-1601000938259-9e92002320b2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Quinoa Bowl": "https://images.unsplash.com/photo-1520066391310-428f06ebd602?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Vegan Mushroom Risotto": "https://images.unsplash.com/photo-1612204078213-a227dba74093?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Sweet Potato Tacos": "https://images.unsplash.com/photo-1604467715878-83e57e8bc129?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Tofu Stir-Fry": "https://plus.unsplash.com/premium_photo-1695151833063-a81c6772de96?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Vegan Chocolate Cake": "https://images.unsplash.com/photo-1590080874810-8180c3eb1016?q=80&w=2098&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Vegan Cauliflower": "https://plus.unsplash.com/premium_photo-1664647731571-c6014eaee88e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "Mediterranean Falafel Bowl": "https://images.unsplash.com/photo-1701688596783-231b3764ef67?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      };
+
         // Wait for the auth state to change (i.e., the user logs in or out)
         onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -121,7 +122,7 @@
                   const cartItem = document.createElement('div');
                   cartItem.classList.add('cart-item', 'd-flex', 'align-items-center');
                   cartItem.innerHTML = `
-                    <img src="${item.image || 'https://via.placeholder.com/80'}" alt="Product Image">
+                    <img src="${foodImages[item.name] || 'https://via.placeholder.com/80'}" alt="Product Image">
                     <div class="details flex-fill">
                       <h5 class="mb-1">${item.name}</h5>
                       <p class="mb-0 text-muted">${item.description || 'Product description or details'}</p>
