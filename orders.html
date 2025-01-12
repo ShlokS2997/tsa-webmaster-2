@@ -26,21 +26,13 @@
     <script type="module">
         import { signOut } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
         import { auth } from "./firestore.js";
-        // Function to log the user out
-        function logoutUser() {
-        signOut(auth)
-            .then(() => {
-            // User signed out successfully
-            console.log("User logged out");
-            window.location.href = "login.html";  // Redirect to the login page after logout
-            })
-            .catch((error) => {
-            // Handle errors if any
-            console.error("Error logging out: ", error);
-            });
-        }
-        document.getElementById("logout-button").addEventListener("click", logoutUser);
+        document.getElementById("logout-button").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch(console.error);
+        });
     </script>
+
     <div class="container cart-container">
         <div class="cart-header d-flex justify-content-between">
             <div>Product</div>
@@ -49,12 +41,10 @@
             <div>Total</div>
         </div>
 
-        <!-- Example cart item -->
         <div class="cart-item d-flex align-items-center" id="cart-container2">
             No items in cart
         </div>
 
-        <!-- Cart Summary -->
         <div class="cart-summary" id="cart-summary">
             <h3>Order Summary</h3>
             <p>Subtotal: $0.00</p>
@@ -62,120 +52,36 @@
             <p><strong>Total: $0.00</strong></p>
             <div class="d-flex justify-content-end">
                 <a href="menu.html"><button class="btn btn-secondary me-2">Continue Shopping</button></a>
-                <button class="btn btn-success">Proceed to Checkout</button>
+                <button id="checkout-button" class="btn btn-success">Proceed to Checkout</button>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js" type="module"></script>
-
-    <!-- Firebase Authentication -->
-    <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js" type="module"></script>
-
-    <!-- Firebase Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js" type="module"></script>
-
     <script type="module">
-        import { auth, firestore } from "./firestore.js"
-        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js';
-        import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js';
-      
-        const foodImages = {
-          "Avocado Sushi Roll": "https://images.unsplash.com/photo-1602554171817-8467dd4310d9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Lentil Shepherd's Pie": "https://images.unsplash.com/photo-1601000938259-9e92002320b2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Quinoa Bowl": "https://images.unsplash.com/photo-1520066391310-428f06ebd602?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Vegan Mushroom Risotto": "https://images.unsplash.com/photo-1612204078213-a227dba74093?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Sweet Potato Tacos": "https://images.unsplash.com/photo-1604467715878-83e57e8bc129?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Tofu Stir-Fry": "https://plus.unsplash.com/premium_photo-1695151833063-a81c6772de96?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Vegan Chocolate Cake": "https://images.unsplash.com/photo-1590080874810-8180c3eb1016?q=80&w=2098&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Vegan Cauliflower": "https://plus.unsplash.com/premium_photo-1664647731571-c6014eaee88e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "Mediterranean Falafel Bowl": "https://images.unsplash.com/photo-1701688596783-231b3764ef67?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      };
+        import { auth, firestore } from "./firestore.js";
+        import { doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js";
 
-        // Wait for the auth state to change (i.e., the user logs in or out)
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            // User is logged in, fetch their cart from Firestore
-            const userId = user.uid;
-      
-            // Reference to the user's cart subcollection
-            const cartRef = collection(firestore, 'users', userId, 'cart');
-            
-            // Fetch the cart items
-            getDocs(cartRef)
-              .then((querySnapshot) => {
-                if (querySnapshot.empty) {
-                  console.log("No items in the cart");
-                  return;
+        document.getElementById("checkout-button").addEventListener("click", async () => {
+            const user = auth.currentUser;
+            if (user) {
+                const userDocRef = doc(firestore, "users", user.uid);
+
+                try {
+                    await updateDoc(userDocRef, {
+                        points: increment(20)
+                    });
+                    alert("20 points added to your rewards!");
+                    window.location.href = "rewards.html";
+                } catch (error) {
+                    console.error("Error updating points: ", error);
+                    alert("Failed to update points.");
                 }
-      
-                // Clear the current cart items in the DOM
-                const cartContainer = document.getElementById("cart-container2");
-                cartContainer.innerHTML = ""; // Clear existing cart items
-                
-                // Dynamically populate the cart with items
-                querySnapshot.forEach((doc) => {
-                  const item = doc.data();
-                  const cartItem = document.createElement('div');
-                  cartItem.classList.add('cart-item', 'd-flex', 'align-items-center');
-                  cartItem.innerHTML = `
-                    <img src="${foodImages[item.name] || 'https://via.placeholder.com/80'}" alt="Product Image">
-                    <div class="details flex-fill">
-                      <h5 class="mb-1">${item.name}</h5>
-                      <p class="mb-0 text-muted">${item.description || 'Product description or details'}</p>
-                    </div>
-                    <div>$${item.price}</div>
-                    
-                    
-                  `;
-                  
-                  cartContainer.appendChild(cartItem);
-                });
-      
-                // Calculate and display order summary
-                const subtotal = querySnapshot.docs.reduce((total, doc) => {
-                  const item = doc.data();
-                  return total + (item.price);
-                }, 0);
-      
-                const tax = subtotal * 0.05; // Example: 5% tax
-                const total = subtotal + tax;
-      
-                const summary = document.getElementById("cart-summary");
-                summary.innerHTML = `
-                  <h3>Order Summary</h3>
-                  <p>Subtotal: $${subtotal.toFixed(2)}</p>
-                  <p>Tax: $${tax.toFixed(2)}</p>
-                  <p><strong>Total: $${total.toFixed(2)}</strong></p>
-                  <div class="d-flex justify-content-end">
-                    <a href="menu.html"><button class="btn btn-secondary me-2">Continue Shopping</button></a>
-                    <button class="btn btn-success">Proceed to Checkout</button>
-                  </div>
-                `;
-              })
-              .catch((error) => {
-                console.error("Error fetching cart items: ", error);
-              });
-          } else {
-            console.log("No user logged in");
-          }
+            } else {
+                alert("Please log in to proceed.");
+            }
         });
-      </script>
-      <script type="module" src="loginCheck.js"></script>
+    </script>
 
-      <style>
-        .cart-item {
-            display: flex;
-            flex-direction: column; /* Stacks the items vertically */
-             /* Space between cart items */
-             width: 100%;
-        }
-
-        .cart-item .d-flex {
-            flex-direction: row; /* Ensure quantity controls stay horizontally aligned */
-        }
-      </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>

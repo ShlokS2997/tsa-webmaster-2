@@ -1,11 +1,12 @@
-import { auth, firestore } from "./firestore.js";
+import { auth, firestore } from "./firestore.js"; 
 import { 
     doc, 
     getDoc, 
-    setDoc 
+    setDoc, 
+    updateDoc, 
+    increment 
 } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
-
 
 async function displayRewards() {
     const user = auth.currentUser;
@@ -47,43 +48,48 @@ async function displayRewards() {
     }
 }
 
-
 function resetProgressBar() {
     document.getElementById('progress-fill').style.width = '0%';
     document.getElementById('goal-message').style.display = 'none';
 }
 
-
-async function updatePoints() {
+async function addPointsOnCheckout() {
     const user = auth.currentUser;
     if (user) {
         try {
-            // Retrieve cart total from local storage
-            const cartTotal = parseFloat(localStorage.getItem('cartTotal')) || 0;
-            const points = Math.min(Math.floor(cartTotal), 100); // 1 point per dollar spent, cap at 100
-
             const userDocRef = doc(firestore, "users", user.uid);
-            await setDoc(userDocRef, { points: points }, { merge: true });
+            await updateDoc(userDocRef, {
+                points: increment(20) // Add 20 points
+            });
 
             displayRewards();
+            alert("20 points added to your rewards!");
         } catch (error) {
-            console.error("Error updating points:", error);
+            console.error("Error adding points on checkout:", error);
         }
+    } else {
+        alert("Please log in to earn rewards points.");
     }
 }
-
 
 function initializeRewards() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            updatePoints();
-        } else {
             displayRewards();
+        } else {
+            resetProgressBar();
         }
     });
 
-    window.addEventListener('storage', (event) => {
-        if (event.key === 'cartTotal') {
+    // Listen for checkout button click in orders.html
+    const checkoutButton = document.querySelector(".btn-success");
+    if (checkoutButton) {
+        checkoutButton.addEventListener("click", addPointsOnCheckout);
+    }
+
+    // Listen for cartTotal updates in local storage
+    window.addEventListener("storage", (event) => {
+        if (event.key === "cartTotal") {
             updatePoints();
         }
     });
