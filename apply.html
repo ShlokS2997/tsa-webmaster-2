@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application</title>
+    <link rel="stylesheet" href="applystyles.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="about.html" class="nav-item">About Us</a>
+        <a href="menu.html" class="nav-item">Menu</a>
+        <a href="ourApproach.html" class="nav-item">Approach</a>
+        <a href="sustainability.html" class="nav-item">Sustainability</a>
+        <a href="gallery.html" class="nav-item">Gallery</a>
+        <a href="orders.html" class="nav-item">Cart</a>
+        <a href="reservations.html" class="nav-item">Reservations</a>
+        <a href="rewards.html" class="nav-item">Rewards</a>
+        <a href="apply.html" class="nav-item">Apply</a>
+        <a href="references.html" class="nav-item">References</a>
+        <a href="login.html" class="nav-item" style="background-color: red" id="logout-button">Logout</a>
+    </nav>
+    <script type="module">
+        import { signOut } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+        import { auth } from "./firestore.js";
+        // Function to log the user out
+        function logoutUser() {
+        signOut(auth)
+            .then(() => {
+            // User signed out successfully
+            console.log("User logged out");
+            window.location.href = "login.html";  // Redirect to the login page after logout
+            })
+            .catch((error) => {
+            // Handle errors if any
+            console.error("Error logging out: ", error);
+            });
+        }
+        document.getElementById("logout-button").addEventListener("click", logoutUser);
+    </script>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <h1>Join Our Team </h1>
+        <p>Welcome to the careers page of our International Restaurant. We are passionate about providing our customers with an exceptional dining experience featuring global cuisines. Join us and be part of a team that values creativity, collaboration, and dedication.</p>
+
+        <div class="job-listing">
+            <!-- Job 1 -->
+            <div class="job-card">
+                <div class="job-title">Chef</div>
+                <div class="job-description">We are looking for an experienced chef specializing in international cuisines. Responsibilities include menu creation, food preparation, and maintaining kitchen standards.</div>
+                <div class="upload-section">
+                    <label>Resume:</label>
+                    <input type="file">
+                    <label>Cover Letter:</label>
+                    <input type="file">
+                    <button class="apply-button">Apply</button>
+                </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="job-card">
+                <div class="job-title">Restaurant Manager</div>
+                <div class="job-description">Seeking a dynamic restaurant manager to oversee daily operations, manage staff, and ensure a smooth dining experience for our customers.</div>
+                <div class="upload-section">
+                    <label>Resume:</label>
+                    <input type="file">
+                    <label>Cover Letter:</label>
+                    <input type="file">
+                    <button class="apply-button">Apply</button>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-title">Waitstaff</div>
+                <div class="job-description">We are hiring enthusiastic waitstaff to deliver exceptional customer service. Responsibilities include taking orders, serving food, and ensuring customer satisfaction.</div>
+                <div class="upload-section">
+                    <label>Resume:</label>
+                    <input type="file">
+                    <label>Cover Letter:</label>
+                    <input type="file">
+                    <button class="apply-button">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>About Us</h3>
+                <p>We serve innovative vegan dishes crafted with love and sustainability in mind. Join us in redefining the way we eat, one plant-based bite at a time.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="sustainability.html">Sustainability</a></li>
+                    <li><a href="reservations.html">Reservations</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="#" class="social-icon">Facebook</a>
+                <a href="#" class="social-icon">Instagram</a>
+                <a href="#" class="social-icon">Twitter</a>
+            </div>
+            <div class="footer-subscribe">
+                <h3>Subscribe to Updates</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vegan Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+    
+</body>
+</html>
+
+

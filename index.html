@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegan Restaurant Landing Page</title>
+    <link rel="stylesheet" href="indexstyles.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <!-- Navigation -->
+            <nav class="nav">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="about.html" class="nav-item">About Us</a>
+                <a href="menu.html" class="nav-item">Menu</a>
+                <a href="ourApproach.html" class="nav-item">Approach</a>
+                <a href="sustainability.html" class="nav-item">Sustainability</a>
+                <a href="gallery.html" class="nav-item">Gallery</a>
+                <a href="orders.html" class="nav-item">Cart</a>
+                <a href="reservations.html" class="nav-item">Reservations</a>
+                <a href="rewards.html" class="nav-item">Rewards</a>
+                <a href="apply.html" class="nav-item">Apply</a>
+                <a href="references.html" class="nav-item">References</a>
+                <a href="login.html" class="nav-item" style="background-color: red" id="logout-button">Logout</a>
+            </nav>
+    
+            <!-- Hero Text  -->
+            <div class="hero-text">
+                <h1>Vegan Delights</h1>
+                <p>Redefining plant-based dining, one bite at a time.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { signOut } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+        import { auth } from "./firestore.js";
+        // Function to log the user out
+        function logoutUser() {
+        signOut(auth)
+            .then(() => {
+            // User signed out successfully
+            console.log("User logged out");
+            window.location.href = "login.html";  // Redirect to the login page after logout
+            })
+            .catch((error) => {
+            // Handle errors if any
+            console.error("Error logging out: ", error);
+            });
+        }
+        document.getElementById("logout-button").addEventListener("click", logoutUser);
+    </script>
+
+        </div>
+    </div>
+    <div class="cards-section">
+        <div class="card" style="background-image: url('https://images.unsplash.com/photo-1463143296037-46790ff95a7e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+            <h2>Prague</h2>
+            <p>Botanical Coffee Shop in Prague offers a serene oasis with its lush decor and artisanal coffees.</p>
+        </div>
+        <div class="card" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1000');">
+            <h2>New York</h2>
+            <p>Experience the vibrant vegan scene in the heart of New York City with our innovative plant-based cuisine.</p>
+        </div>
+        <div class="card" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=1000');">
+            <h2>Tokyo</h2>
+            <p>Discover the fusion of traditional Japanese flavors and modern vegan cooking techniques in our Tokyo location.</p>
+        </div>
+    </div>
+    <div class="menu-section">
+        <h2 class="menu-title">Our Sample Menu</h2>
+        <div class="menu-cards">
+            <div class="menu-card">
+                <button class="like-button"></button>
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&q=80&w=1000');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Quinoa Buddha Bowl</h3>
+                    <p class="menu-card-description">A nourishing bowl of quinoa, roasted vegetables, and tahini dressing.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$12.99</span>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <button class="like-button"></button>
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=1000');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Avocado Sushi Roll</h3>
+                    <p class="menu-card-description">Fresh avocado and cucumber wrapped in nori and sushi rice.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$9.99</span>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <button class="like-button"></button>
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1000');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Lentil Shepherd's Pie</h3>
+                    <p class="menu-card-description">Hearty lentils topped with creamy mashed potatoes and herbs.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$14.99</span>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="approach-section">
+        <h2 class="approach-title">Our Approach</h2>
+        <div class="approach-grid">
+            <div class="approach-card">
+                <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&q=80&w=2000" alt="Approach 1">
+                <div class="approach-card-content">
+                    <h3 class="approach-card-title">Approach 1</h3>
+                    <p class="approach-card-description">Our first approach focuses on sustainable sourcing of ingredients, ensuring that every dish we serve contributes to environmental conservation.</p>
+                </div>
+            </div>
+            <div class="approach-card">
+                <img src="https://plus.unsplash.com/premium_photo-1712509786867-1356933033dd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Approach 2">
+                <div class="approach-card-content">
+                    <h3 class="approach-card-title">Approach 2</h3>
+                    <p class="approach-card-description">We prioritize zero-waste cooking techniques, utilizing every part of our ingredients to minimize food waste and maximize flavor.</p>
+                </div>
+            </div>
+            <div class="approach-card">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=2000" alt="Approach 3">
+                <div class="approach-card-content">
+                    <h3 class="approach-card-title">Approach 3</h3>
+                    <p class="approach-card-description">Our innovative plant-based recipes are designed to provide complete nutrition while tantalizing your taste buds.</p>
+                </div>
+            </div>
+            <div class="approach-card">
+                <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&q=80&w=2000" alt="Approach 4">
+                <div class="approach-card-content">
+                    <h3 class="approach-card-title">Approach 4</h3>
+                    <p class="approach-card-description">We engage in community outreach programs to educate and promote the benefits of a plant-based lifestyle.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>About Us</h3>
+                <p>We serve innovative vegan dishes crafted with love and sustainability in mind. Join us in redefining the way we eat, one plant-based bite at a time.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="sustainability.html">Sustainability</a></li>
+                    <li><a href="reservations.html">Reservations</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="#" class="social-icon">Facebook</a>
+                <a href="#" class="social-icon">Instagram</a>
+                <a href="#" class="social-icon">Twitter</a>
+            </div>
+            <div class="footer-subscribe">
+                <h3>Subscribe to Updates</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vegan Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+     
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const menuTitle = document.querySelector('.menu-title');
+            const likeButtons = document.querySelectorAll('.like-button');
+
+            window.addEventListener('scroll', () => {
+                const menuSectionTop = document.querySelector('.menu-section').offsetTop;
+                const scrollPosition = window.scrollY + window.innerHeight;
+
+                if (scrollPosition > menuSectionTop) {
+                    menuTitle.classList.add('visible');
+                }
+            });
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.classList.toggle('liked');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

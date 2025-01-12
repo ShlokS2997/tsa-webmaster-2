@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="menustyles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="about.html" class="nav-item">About Us</a>
+        <a href="menu.html" class="nav-item">Menu</a>
+        <a href="ourApproach.html" class="nav-item">Approach</a>
+        <a href="sustainability.html" class="nav-item">Sustainability</a>
+        <a href="gallery.html" class="nav-item">Gallery</a>
+        <a href="orders.html" class="nav-item">Cart</a>
+        <a href="reservations.html" class="nav-item">Reservations</a>
+        <a href="rewards.html" class="nav-item">Rewards</a>
+        <a href="apply.html" class="nav-item">Apply</a>
+        <a href="references.html" class="nav-item">References</a>
+        <a href="login.html" class="nav-item" style="background-color: red" id="logout-button">Logout</a>
+    </nav>
+    <script type="module">
+        import { signOut } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+        import { auth } from "./firestore.js";
+        // Function to log the user out
+        function logoutUser() {
+        signOut(auth)
+            .then(() => {
+            // User signed out successfully
+            console.log("User logged out");
+            window.location.href = "login.html";  // Redirect to the login page after logout
+            })
+            .catch((error) => {
+            // Handle errors if any
+            console.error("Error logging out: ", error);
+            });
+        }
+        document.getElementById("logout-button").addEventListener("click", logoutUser);
+    </script>
+
+    <!-- Menu Header -->
+    <div class="menu-header">
+        <h1>Our Menu</h1>
+        <p>Delicious plant-based creations just for you</p>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="menu-section">
+        <h2 class="menu-title">Our Menu</h2>
+        <div class="menu-cards">
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1602554171817-8467dd4310d9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Avocado Sushi Roll</h3>
+                    <p class="menu-card-description">Fresh avocado and cucumber wrapped in nori and sushi rice.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$9.99</span>
+                        <button class="add-to-cart-button" data-name="Avocado Sushi Roll" data-description="Fresh avocado and cucumber wrapped in nori and sushi rice." data-price="9.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1601000938259-9e92002320b2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Lentil Shepherd's Pie</h3>
+                    <p class="menu-card-description">Hearty lentils topped with creamy mashed potatoes and herbs.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$14.99</span>
+                        <button class="add-to-cart-button" data-name="Lentil Shepherd's Pie" data-description="Hearty lentils topped with creamy mashed potatoes and herbs." data-price="14.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1520066391310-428f06ebd602?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Quinoa Bowl</h3>
+                    <p class="menu-card-description">A nourishing bowl of quinoa, roasted vegetables, and tahini dressing.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$12.99</span>
+                        <button class="add-to-cart-button" data-name="Quinoa Bowl" data-description="A nourishing bowl of quinoa, roasted vegetables, and tahini dressing." data-price="12.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1612204078213-a227dba74093?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Vegan Mushroom Risotto</h3>
+                    <p class="menu-card-description">Creamy arborio rice cooked with a medley of fresh mushrooms and herbs.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$15.99</span>
+                        <button class="add-to-cart-button" data-name="Vegan Mushroom Risotto" data-description="Creamy arborio rice cooked with a medley of fresh mushrooms and herbs." data-price="15.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1604467715878-83e57e8bc129?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Sweet Potato Tacos</h3>
+                    <p class="menu-card-description">Roasted sweet potatoes, black beans, and avocado topped with vegan sour cream.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$11.99</span>
+                        <button class="add-to-cart-button" data-name="Sweet Potato Tacos" data-description="Roasted sweet potatoes, black beans, and avocado topped with vegan sour cream." data-price="11.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://plus.unsplash.com/premium_photo-1695151833063-a81c6772de96?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Tofu Stir-Fry</h3>
+                    <p class="menu-card-description">Sautéed tofu with fresh vegetables, served with a savory soy-ginger sauce.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$13.49</span>
+                        <button class="add-to-cart-button" data-name="Tofu Stir-Fry" data-description="Sautéed tofu with fresh vegetables, served with a savory soy-ginger sauce." data-price="13.49">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1590080874810-8180c3eb1016?q=80&w=2098&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Vegan Chocolate Cake</h3>
+                    <p class="menu-card-description">Rich and moist chocolate cake topped with a velvety vegan ganache.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$7.99</span>
+                        <button class="add-to-cart-button" data-name="Vegan Chocolate Cake" data-description="Rich and moist chocolate cake topped with a velvety vegan ganache." data-price="7.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://plus.unsplash.com/premium_photo-1664647731571-c6014eaee88e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Vegan Cauliflower</h3>
+                    <p class="menu-card-description">Crispy cauliflower bites coated in spicy buffalo sauce, served with vegan ranch.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$10.99</span>
+                        <button class="add-to-cart-button" data-name="Vegan Cauliflower" data-description="Crispy cauliflower bites coated in spicy buffalo sauce, served with vegan ranch." data-price="10.99">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-image" style="background-image: url('https://images.unsplash.com/photo-1701688596783-231b3764ef67?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Mediterranean Falafel Bowl</h3>
+                    <p class="menu-card-description">Crispy falafel served with hummus, tabbouleh, and pita bread.</p>
+                    <div class="menu-card-footer">
+                        <span class="menu-card-price">$12.49</span>
+                        <button class="add-to-cart-button" data-name="Mediterranean Falafel Bowl" data-description="Crispy falafel served with hummus, tabbouleh, and pita bread." data-price="12.49">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>About Us</h3>
+                <p>We serve innovative vegan dishes crafted with love and sustainability in mind. Join us in redefining the way we eat, one plant-based bite at a time.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="sustainability.html">Sustainability</a></li>
+                    <li><a href="reservations.html">Reservations</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="#" class="social-icon">Facebook</a>
+                <a href="#" class="social-icon">Instagram</a>
+                <a href="#" class="social-icon">Twitter</a>
+            </div>
+            <div class="footer-subscribe">
+                <h3>Subscribe to Updates</h3>
+                <form>
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vegan Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { auth, firestore } from "./firestore.js";
+        import { doc, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
+
+        // Handle Add to Cart button click
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        // Get food info from the button data attributes
+                        const foodName = this.getAttribute('data-name');
+                        const foodDescription = this.getAttribute('data-description');
+                        const foodPrice = this.getAttribute('data-price');
+
+                        // Create an object to store the food data
+                        const foodData = {
+                            name: foodName,
+                            description: foodDescription,
+                            price: parseFloat(foodPrice),
+                            timestamp: new Date().toISOString(),
+                        };
+
+                        // Add food to the cart subcollection in Firestore
+                        const userDoc = doc(firestore, "users", user.uid);
+                        const reservationsCollection = collection(userDoc, "cart");
+
+                        try {
+                            // Use await to ensure the promise resolves before continuing
+                            await addDoc(reservationsCollection, foodData);
+                            alert(`${foodName} added to your cart!`);
+                        } catch (error) {
+                            console.error("Error adding to cart: ", error);
+                            alert("Failed to add to cart. Please try again.");
+                        }
+                    } else {
+                        alert("Please log in to add items to your cart.");
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>
