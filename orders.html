@@ -26,13 +26,21 @@
     <script type="module">
         import { signOut } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
         import { auth } from "./firestore.js";
-        document.getElementById("logout-button").addEventListener("click", () => {
-            signOut(auth).then(() => {
-                window.location.href = "login.html";
-            }).catch(console.error);
-        });
+        // Function to log the user out
+        function logoutUser() {
+        signOut(auth)
+            .then(() => {
+            // User signed out successfully
+            console.log("User logged out");
+            window.location.href = "login.html";  // Redirect to the login page after logout
+            })
+            .catch((error) => {
+            // Handle errors if any
+            console.error("Error logging out: ", error);
+            });
+        }
+        document.getElementById("logout-button").addEventListener("click", logoutUser);
     </script>
-
     <div class="container cart-container">
         <div class="cart-header d-flex justify-content-between">
             <div>Product</div>
